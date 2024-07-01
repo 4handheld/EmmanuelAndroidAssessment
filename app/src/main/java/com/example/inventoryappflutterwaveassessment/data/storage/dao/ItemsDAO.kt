@@ -13,6 +13,12 @@ interface ItemsDAO {
     @Query("SELECT * FROM items")
     fun getItemsAll(): List<Items>
 
+    @Query("SELECT * FROM items where ownerId = :userId")
+    fun getUserItemsAll(userId: Int): List<Items>
+
+    @Query("SELECT EXISTS(SELECT name FROM items WHERE name = :name)")
+    fun nameExists(name: String): Boolean
+
     @Insert
     fun insertAll(vararg items: Items)
 

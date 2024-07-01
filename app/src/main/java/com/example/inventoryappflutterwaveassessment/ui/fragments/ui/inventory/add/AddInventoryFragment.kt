@@ -14,8 +14,10 @@ import com.example.inventoryappflutterwaveassessment.R
 import com.example.inventoryappflutterwaveassessment.data.storage.entities.Items
 import com.example.inventoryappflutterwaveassessment.databinding.FragmentAddInventoryBinding
 import com.example.inventoryappflutterwaveassessment.databinding.FragmentLoginBinding
+import com.example.inventoryappflutterwaveassessment.extensions.getLoggedInUserId
 import com.example.inventoryappflutterwaveassessment.extensions.onToast
 import com.example.inventoryappflutterwaveassessment.extensions.verifyLogin
+import com.example.inventoryappflutterwaveassessment.ui.activity.MainActivity
 import com.example.inventoryappflutterwaveassessment.ui.fragments.ui.inventory.view.MyItemRecyclerViewAdapter
 import com.example.inventoryappflutterwaveassessment.ui.fragments.ui.login.mod.SimpleLoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,11 +68,38 @@ class AddInventoryFragment : Fragment() {
 
     private fun setupClickListeners() {
        _binding?.addButton?.setOnClickListener{
-           val name = _binding?.includedInputLayout?.itemNameInput.toString()
-           val desc = _binding?.includedInputLayout?.itemDescInput.toString()
-           val price = _binding?.includedInputLayout?.itemPriceInput.toString().toDouble()
-           val qty = _binding?.includedInputLayout?.itemQtyInput.toString().toInt()
-           viewModel.addItem(name, desc, price, qty, 1)
+           val name = _binding?.includedInputLayout?.itemNameInput?.text.toString().trim()
+           val desc = _binding?.includedInputLayout?.itemDescInput?.text.toString().trim()
+           val price = _binding?.includedInputLayout?.itemPriceInput?.text.toString().trim()
+           val qty = _binding?.includedInputLayout?.itemQtyInput?.text.toString().trim()
+
+           val isNameValid = name.isNotEmpty()
+           val isValidPrice = price.isNotEmpty()
+           val isValidQty = qty.isNotEmpty()
+           val isValidDesc = desc.split(" ").size >= 3
+
+           if(!isNameValid){
+               onToast("Name is required and must be unique")
+               return@setOnClickListener
+           }
+
+           if(!isValidDesc){
+               onToast("Description must be at least three words")
+               return@setOnClickListener
+           }
+
+           if(!isValidPrice){
+               onToast("Price is required and must be a number")
+               return@setOnClickListener
+           }
+
+           if(!isValidQty){
+               onToast("Qty is required and must be a number")
+               return@setOnClickListener
+           }
+
+           val loggedInId = getLoggedInUserId(pref)
+           viewModel.addItem(name, desc, price.toDouble(), qty.toInt(), loggedInId)
        }
     }
 

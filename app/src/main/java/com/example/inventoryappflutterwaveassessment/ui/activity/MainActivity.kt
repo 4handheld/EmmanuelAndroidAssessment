@@ -16,13 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-    @Inject
-    lateinit var pref: SharedPreferences
-
-    companion object {
-        val KEY_USER_ID = "LOGGED_IN_USER_ID"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,12 +24,6 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
 
     }
 

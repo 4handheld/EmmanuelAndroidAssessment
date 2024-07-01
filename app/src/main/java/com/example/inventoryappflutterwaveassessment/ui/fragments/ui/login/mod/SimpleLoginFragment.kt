@@ -1,19 +1,17 @@
 package com.example.inventoryappflutterwaveassessment.ui.fragments.ui.login.mod
 
 import android.content.SharedPreferences
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.inventoryappflutterwaveassessment.R
 import com.example.inventoryappflutterwaveassessment.databinding.FragmentLoginBinding
-import com.example.inventoryappflutterwaveassessment.ui.activity.MainActivity.Companion.KEY_USER_ID
-import com.example.inventoryappflutterwaveassessment.ui.fragments.ui.login.LoginViewModel
+import com.example.inventoryappflutterwaveassessment.extensions.onToast
+import com.example.inventoryappflutterwaveassessment.extensions.saveSessionAuth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,16 +41,15 @@ class SimpleLoginFragment : Fragment() {
     }
 
     private fun setupEventListeners() {
-        loginViewModel.state.observe(viewLifecycleOwner){
-            when(it){
+        loginViewModel.state.observe(viewLifecycleOwner) {
+            when (it) {
                 SimpleLoginViewModel.LoginUIState.Error -> TODO()
                 SimpleLoginViewModel.LoginUIState.Loading -> TODO()
                 is SimpleLoginViewModel.LoginUIState.Success -> {
-                    pref.edit().putInt(KEY_USER_ID, it.user.uid).apply()
+                    pref.saveSessionAuth(it.user)
                     findNavController().popBackStack()
                 }
             }
-//            loginViewModel.clearState()
         }
 
     }
@@ -61,7 +58,21 @@ class SimpleLoginFragment : Fragment() {
         binding.login.setOnClickListener {
             val email = binding.username.text.toString()
             val pass = binding.password.text.toString()
-            loginViewModel.loginUser(email,pass)
+
+            val isValidEmail = email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+            val isValidPassword = pass.isNotEmpty()
+
+            if (!isValidEmail) {
+                onToast("Invalid Email. Can't log in")
+                return@setOnClickListener
+            }
+
+            if (!isValidPassword) {
+                onToast("Password must not be empty")
+                return@setOnClickListener
+            }
+
+            loginViewModel.loginUser(email, pass)
         }
     }
 

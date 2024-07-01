@@ -1,5 +1,6 @@
 package com.example.inventoryappflutterwaveassessment.ui.fragments.ui.inventory.view
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class MyItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         val item = getItem(position)
         holder.nameTv.text = item.name
         holder.descTv.text = item.description
@@ -38,8 +40,6 @@ class MyItemRecyclerViewAdapter(
             onClick(item)
         }
     }
-
-    override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val nameTv: TextView = binding.nameTv

@@ -1,5 +1,6 @@
 package com.example.inventoryappflutterwaveassessment.ui.fragments.ui.edit
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,10 +52,10 @@ class EditInventoryFragment : Fragment() {
 
     private fun setupEditors() {
         _binding?.includedInputLayout?.apply {
-            itemNameInput.editText?.setText(args.item.name)
-            itemDescInput.editText?.setText(args.item.description)
-            itemPriceInput.editText?.setText(args.item.price.toString())
-            itemQtyInput.editText?.setText(args.item.qty.toString())
+            itemNameInput.setText(args.item.name)
+            itemDescInput.setText(args.item.description)
+            itemPriceInput.setText(args.item.price.toString())
+            itemQtyInput.setText(args.item.qty.toString())
         }
     }
 
@@ -87,20 +88,61 @@ class EditInventoryFragment : Fragment() {
     private fun setupClickListeners() {
       _binding?.delBtn?.setOnClickListener{
           val item = args.item.run {
-              Items(uid, ownerId, name, description, price, qty)
+              Items(ownerId, name, description, price, qty, uid)
           }
-          viewModel.deleteItem(item)
+          confirmDeleteDialog(item)
       }
       _binding?.saveBtn?.setOnClickListener{
           val item = args.item.run {
-              val name = _binding?.includedInputLayout?.itemNameInput.toString()
-              val desc = _binding?.includedInputLayout?.itemDescInput.toString()
-              val price = _binding?.includedInputLayout?.itemPriceInput.toString().toDouble()
-              val qty = _binding?.includedInputLayout?.itemQtyInput.toString().toInt()
-              Items(uid, ownerId, name, desc, price, qty)
+              val name = _binding?.includedInputLayout?.itemNameInput?.text.toString().trim()
+              val desc = _binding?.includedInputLayout?.itemDescInput?.text.toString().trim()
+              val price = _binding?.includedInputLayout?.itemPriceInput?.text.toString().trim()
+              val qty = _binding?.includedInputLayout?.itemQtyInput?.text.toString().trim()
+
+              val isNameValid = name.isNotEmpty()
+              val isValidPrice = price.isNotEmpty()
+              val isValidQty = qty.isNotEmpty()
+              val isValidDesc = desc.split(" ").size >= 3
+
+              if(!isNameValid){
+                  onToast("Name is required and must be unique")
+                  return@setOnClickListener
+              }
+
+              if(!isValidDesc){
+                  onToast("Description must be at least three words")
+                  return@setOnClickListener
+              }
+
+              if(!isValidPrice){
+                  onToast("Price is required and must be a number")
+                  return@setOnClickListener
+              }
+
+              if(!isValidQty){
+                  onToast("Qty is required and must be a number")
+                  return@setOnClickListener
+              }
+
+
+              Items( ownerId, name, desc, price.toDouble(), qty.toInt(), uid)
           }
+
           viewModel.updateItem(item)
       }
     }
 
+    private fun confirmDeleteDialog(item: Items){
+        val dlg = AlertDialog.Builder(activity).apply {
+            setMessage("You are about to delete ${item.name} ? ")
+            setPositiveButton("Okay") { dialog, _ ->
+                viewModel.deleteItem(item)
+                dialog.dismiss()
+
+            }
+            setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            create()
+        }
+        dlg.show()
+    }
 }

@@ -7,12 +7,13 @@ interface ItemsRepository {
 
     fun getItems(): List<Items>
 
-    fun getItemsByUserID(): List<Items>
+    fun getItemsByUserID(userId: Int): List<Items>
 
     fun deleteItem(items: Items)
 
     fun updateItem(items: Items)
 
     fun addItem(items: Items)
+    fun nameExists(name: String) : Boolean
 
 }

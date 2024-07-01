@@ -11,9 +11,12 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventoryappflutterwaveassessment.R
 import com.example.inventoryappflutterwaveassessment.data.storage.entities.Items
 import com.example.inventoryappflutterwaveassessment.databinding.FragmentItemListBinding
+import com.example.inventoryappflutterwaveassessment.extensions.clearSessionAuth
+import com.example.inventoryappflutterwaveassessment.extensions.getLoggedInUserId
 import com.example.inventoryappflutterwaveassessment.extensions.onToast
 import com.example.inventoryappflutterwaveassessment.extensions.verifyLogin
 import com.example.inventoryappflutterwaveassessment.ui.activity.MainActivity
@@ -28,22 +31,20 @@ import kotlin.system.exitProcess
  * A fragment representing a list of Items.
  */
 @AndroidEntryPoint
-class ItemFragment : Fragment(R.layout.fragment_item_list) {
+class ItemFragment : Fragment() {
 
 //    private val binding by viewBinding(FragmentPayTaxBinding::bind)
 
     val viewModel by viewModels<ItemFragmentViewModel>()
 
-    private var _binding: FragmentItemListBinding? = null
+    private lateinit var _binding: FragmentItemListBinding
 
     @Inject
     lateinit var pref: SharedPreferences
 
     private val adapter by lazy{
         MyItemRecyclerViewAdapter(listOf()
-        ) { clickedItem -> onEdit(clickedItem) }.apply {
-
-        }
+        ) { clickedItem -> onEdit(clickedItem) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,14 +67,14 @@ class ItemFragment : Fragment(R.layout.fragment_item_list) {
         setAdapter()
         setupClickListeners()
         setupEventListeners()
-        viewModel.fetchInventory()
+
     }
 
     private fun setupClickListeners(){
         _binding?.toolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.logout -> {
-                    pref.edit().clear().apply()
+                    pref.clearSessionAuth()
                     findNavController().navigate(ItemFragmentDirections.actionItemFragmentToSimpleLoginFragment())
                     true
                 }
@@ -85,7 +86,8 @@ class ItemFragment : Fragment(R.layout.fragment_item_list) {
         }
     }
     private fun setAdapter(){
-        _binding?.itemsRv?.adapter = adapter
+        _binding.itemsRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        _binding.itemsRv.adapter = adapter
     }
 
     private fun setupEventListeners(){
@@ -103,14 +105,20 @@ class ItemFragment : Fragment(R.layout.fragment_item_list) {
     }
 
     private fun onSuccess(list: List<Items>){
-        adapter.submitList(list)
+        adapter.submitList(ArrayList(list))
     }
 
     private fun onEdit(item: Items){
         val inventoryItem = item.run {
-            InventoryItem(uid, ownerId, name, description, price, qty)
+            InventoryItem(uid!!, ownerId, name, description, price, qty)
         }
         findNavController().navigate(ItemFragmentDirections.actionItemFragmentToEditInventoryFragment(inventoryItem))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val userId = getLoggedInUserId(pref)
+        viewModel.fetchInventory(userId)
     }
 
 }

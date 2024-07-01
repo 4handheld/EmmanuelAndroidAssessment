@@ -25,11 +25,11 @@ class ItemFragmentViewModel @Inject constructor(private val itemsRepository: Ite
         _uiState.postValue(ItemFragmentState.Error(exception.message.toString()))
     }
 
-    fun fetchInventory(){
+    fun fetchInventory(userId: Int){
         _uiState.postValue(ItemFragmentState.Loading)
         viewModelScope.launch(exceptionHandler) {
             withContext(Dispatchers.IO) {
-                itemsRepository.getItems().let {
+                itemsRepository.getItemsByUserID(userId).let {
                     _uiState.postValue(ItemFragmentState.Success(it))
                 }
             }

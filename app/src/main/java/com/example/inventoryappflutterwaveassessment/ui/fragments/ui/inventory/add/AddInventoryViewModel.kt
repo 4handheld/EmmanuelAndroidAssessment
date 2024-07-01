@@ -30,10 +30,21 @@ class AddInventoryViewModel @Inject constructor(private val itemsRepository: Ite
         _uiState.postValue(AddInventoryState.Loading)
 
         viewModelScope.launch(exceptionHandler) {
-            withContext(Dispatchers.IO) {
-                itemsRepository.addItem(Items(0, ownerId, name, description, price, qty))
+            val info = withContext(Dispatchers.IO) {
+                val nameExists = itemsRepository.nameExists(name)
+
+                if(!nameExists){
+                    itemsRepository.addItem(Items( ownerId, name, description, price, qty))
+                }
+
+                nameExists
             }
-            _uiState.postValue(AddInventoryState.Success)
+            val result = if(info){
+                AddInventoryState.Error("Inventory name already exists. Use a unique name")
+            }else{
+                AddInventoryState.Success
+            }
+            _uiState.postValue(result)
         }
 
     }

@@ -14,7 +14,7 @@ class UserRepositoryImpl @Inject constructor(private val usersDAO: UsersDAO) : U
     }
 
     override fun addUser(id: String, code:String) {
-        return usersDAO.insert(User(0, id, passwordHash(code)))
+        return usersDAO.insert(User(null, id, passwordHash(code)))
     }
 
     override fun exists(): Boolean {

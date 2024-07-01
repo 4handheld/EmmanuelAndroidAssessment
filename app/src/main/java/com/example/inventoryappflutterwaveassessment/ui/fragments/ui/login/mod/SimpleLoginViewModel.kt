@@ -40,11 +40,9 @@ class SimpleLoginViewModel @Inject constructor(private val userRepository: UserR
     }
 
     sealed class LoginActions {
-
         data object Back : LoginActions()
         data class Navigate(val destination: NavDirections) : LoginActions()
-//        data class BottomNavigate(val bottomSheetDialogFragment: BottomSheetDialogFragment) :
-//            LoginActions()
+
     }
 
     sealed class LoginUIState {
