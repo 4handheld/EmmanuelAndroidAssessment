@@ -66,7 +66,7 @@ class AppInstrumentedTest {
 
         onView(withId(R.id.itemNameInput)).check(matches(withText("Name Test1updated Name")))
         onView(withId(R.id.itemDescInput)).check(matches(withText("Apt Description 1updated Desc")))
-        onView(withId(R.id.itemPriceInput)).check(matches(withText("9.600")))
+        onView(withId(R.id.itemPriceInput)).check(matches(withText("9.6")))
         onView(withId(R.id.itemQtyInput)).check(matches(withText("101")))
 
         onView(withId(R.id.del_btn)).perform(click())
