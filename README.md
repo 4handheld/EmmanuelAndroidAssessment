@@ -17,6 +17,7 @@ I've implemented the feature as requested:
 13. Use clean architecture (data and ui packages)
 14. Room for local sqlite storage
 15. A comprehensive Integration test that runs through the end to end process of creating, viewing, editing, deleting and confirmation dialog test. The entry point for the complete e2e test is `AppInstrumentedTests.startInstrumentedTest()`
+16. Attached is the APK 
 
 NB: I saw the assignment late and combined with my hectic weekend, I rushed this work. Total development time was approximately 6 hours. I intend to do the following within the next few days:
 1. Localise the texts
