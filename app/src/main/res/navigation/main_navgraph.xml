@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navgraph"
+    app:startDestination="@id/itemFragment">
+
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.example.inventoryappflutterwaveassessment.ui.fragments.ui.inventory.view.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/action_itemFragment_to_addInventoryFragment"
+            app:destination="@id/addInventoryFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_editInventoryFragment"
+            app:destination="@id/editInventoryFragment"
+            app:popUpTo="@id/itemFragment" />
+        <action
+            android:id="@+id/action_itemFragment_to_simpleLoginFragment"
+            app:destination="@id/simpleLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addInventoryFragment"
+        android:name="com.example.inventoryappflutterwaveassessment.ui.fragments.ui.inventory.add.AddInventoryFragment"
+        android:label="fragment_add_inventory"
+        tools:layout="@layout/fragment_add_inventory" />
+    <fragment
+        android:id="@+id/editInventoryFragment"
+        android:name="com.example.inventoryappflutterwaveassessment.ui.fragments.ui.edit.EditInventoryFragment"
+        android:label="fragment_edit_inventory"
+        tools:layout="@layout/fragment_edit_inventory" >
+        <argument
+            android:name="item"
+            app:argType="com.example.inventoryappflutterwaveassessment.ui.fragments.ui.inventory.model.InventoryItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/simpleLoginFragment"
+        android:name="com.example.inventoryappflutterwaveassessment.ui.fragments.ui.login.mod.SimpleLoginFragment"
+        android:label="fragment_simplelogin"
+        tools:layout="@layout/fragment_simplelogin" />
+</navigation>
