@@ -47,16 +47,12 @@ class ItemFragment : Fragment() {
         ) { clickedItem -> onEdit(clickedItem) }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding =  FragmentItemListBinding.inflate(inflater, container, false)
-        return _binding!!.root
+        return _binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,7 +67,7 @@ class ItemFragment : Fragment() {
     }
 
     private fun setupClickListeners(){
-        _binding?.toolbar?.setOnMenuItemClickListener {
+        _binding.toolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.logout -> {
                     pref.clearSessionAuth()
@@ -81,7 +77,7 @@ class ItemFragment : Fragment() {
                 else -> false
             }
         }
-        _binding?.floatingActionButton2?.setOnClickListener {
+        _binding.floatingActionButton2?.setOnClickListener {
             findNavController().navigate(ItemFragmentDirections.actionItemFragmentToAddInventoryFragment())
         }
     }

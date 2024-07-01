@@ -2,7 +2,10 @@ package com.example.inventoryappflutterwaveassessment.data.repositories.user
 
 import com.example.inventoryappflutterwaveassessment.data.storage.dao.UsersDAO
 import com.example.inventoryappflutterwaveassessment.data.storage.entities.User
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import javax.inject.Inject
+
 
 class UserRepositoryImpl @Inject constructor(private val usersDAO: UsersDAO) : UserRepository {
     override fun login(): User {
@@ -22,7 +25,28 @@ class UserRepositoryImpl @Inject constructor(private val usersDAO: UsersDAO) : U
     }
 
     override fun passwordHash(password: String): String {
-        return password
+        return getSha256Hash(password)!!
+    }
+
+    private fun getSha256Hash(password: String): String? {
+        return try {
+            var digest: MessageDigest? = null
+            try {
+                digest = MessageDigest.getInstance("SHA-256")
+            } catch (e1: NoSuchAlgorithmException) {
+                e1.printStackTrace()
+            }
+            digest!!.reset()
+            bin2hex(digest.digest(password.toByteArray()))
+        } catch (ignored: Exception) {
+            password
+        }
+    }
+
+    private fun bin2hex(data: ByteArray): String {
+        val hex = StringBuilder(data.size * 2)
+        for (b in data) hex.append(String.format("%02x", b.toInt() and 0xFF))
+        return hex.toString()
     }
 
 }

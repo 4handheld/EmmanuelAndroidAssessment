@@ -4,7 +4,6 @@ import com.example.inventoryappflutterwaveassessment.data.storage.entities.Items
 
 interface ItemsRepository {
 
-
     fun getItems(): List<Items>
 
     fun getItemsByUserID(userId: Int): List<Items>
@@ -14,6 +13,7 @@ interface ItemsRepository {
     fun updateItem(items: Items)
 
     fun addItem(items: Items)
+
     fun nameExists(name: String) : Boolean
 
 }

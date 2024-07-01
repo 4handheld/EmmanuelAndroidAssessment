@@ -18,7 +18,7 @@
             android:id="@+id/itemNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/name"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,7 +35,7 @@
             android:id="@+id/itemDescInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description" />
+            android:hint="@string/description" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,7 +51,7 @@
             android:id="@+id/itemPriceInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Price"
+            android:hint="@string/price"
             android:inputType="number|numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
             android:id="@+id/itemQtyInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Total Stock"
+            android:hint="@string/total_stock"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

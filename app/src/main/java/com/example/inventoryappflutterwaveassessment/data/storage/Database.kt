@@ -15,7 +15,7 @@ abstract class Database : RoomDatabase(){
     abstract fun itemsDAO(): ItemsDAO
 
     companion object {
-        const val DATABASE_NAME : String = "flutterwavetest.db"
+        @JvmStatic val DATABASE_NAME : String = "flutterwavetest.db"
     }
 
 }

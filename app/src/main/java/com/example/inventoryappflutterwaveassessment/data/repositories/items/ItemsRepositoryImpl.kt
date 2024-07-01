@@ -10,6 +10,7 @@ class ItemsRepositoryImpl @Inject constructor(private val itemsDAO: ItemsDAO):It
     override fun getItemsByUserID(userId: Int): List<Items> = itemsDAO.getUserItemsAll(userId)
 
     override fun deleteItem(item: Items) = itemsDAO.delete(item)
+
     override fun updateItem(items: Items)  = itemsDAO.updateItem(items)
 
     override fun addItem(items: Items) = itemsDAO.insertAll(items)

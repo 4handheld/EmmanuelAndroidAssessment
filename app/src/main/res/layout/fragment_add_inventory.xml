@@ -22,7 +22,7 @@
         android:id="@+id/add_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="@string/add"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
