@@ -24,6 +24,9 @@ class AppInstrumentedTest {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
+    private val testAccountEmail = "aaa@gmail.com"
+    private val testAccountPassword = "password"
+
     @Test
     fun startInstrumentedTest(){
         viewAddedItems()
@@ -31,8 +34,8 @@ class AppInstrumentedTest {
 
     @Test
     fun createAccount(){
-        onView(withId(R.id.username)).perform(typeText("aaa@gmail.com"), closeSoftKeyboard())
-        onView(withId(R.id.password)).perform(typeText("password"), closeSoftKeyboard())
+        onView(withId(R.id.username)).perform(typeText(testAccountEmail), closeSoftKeyboard())
+        onView(withId(R.id.password)).perform(typeText(testAccountPassword), closeSoftKeyboard())
         onView(withId(R.id.login)).perform(click())
     }
 
@@ -64,15 +67,16 @@ class AppInstrumentedTest {
         onView(withId(R.id.items_rv))
             .perform(RecyclerViewActions.actionOnItemAtPosition<MyItemRecyclerViewAdapter.ViewHolder>(position, click()))
 
-        onView(withId(R.id.itemNameInput)).check(matches(withText("Name Test1updated Name")))
-        onView(withId(R.id.itemDescInput)).check(matches(withText("Apt Description 1updated Desc")))
+        onView(withId(R.id.itemNameInput)).check(matches(withText("${name}updated Name")))
+        onView(withId(R.id.itemDescInput)).check(matches(withText("${desc}updated Desc")))
         onView(withId(R.id.itemPriceInput)).check(matches(withText("9.6")))
         onView(withId(R.id.itemQtyInput)).check(matches(withText("101")))
 
         onView(withId(R.id.del_btn)).perform(click())
-
         onView(withText("No")).perform(click())
-        onView(withText("Yes")).perform(click())
+
+        onView(withId(R.id.del_btn)).perform(click())
+        onView(withText("Okay")).perform(click())
 
     }
 
