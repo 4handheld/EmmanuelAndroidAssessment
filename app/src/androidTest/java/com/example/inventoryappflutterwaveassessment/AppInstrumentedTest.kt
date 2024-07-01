@@ -1,33 +1,33 @@
 package com.example.inventoryappflutterwaveassessment
 
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import com.example.inventoryappflutterwaveassessment.ui.activity.MainActivity
 import com.example.inventoryappflutterwaveassessment.ui.fragments.ui.inventory.view.MyItemRecyclerViewAdapter
-import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class DeleteItemInstrumentedTest {
+class AppInstrumentedTest {
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Test
+    fun startInstrumentedTest(){
+        viewAddedItems()
+    }
 
     @Test
     fun createAccount(){
@@ -66,7 +66,7 @@ class DeleteItemInstrumentedTest {
 
         onView(withId(R.id.itemNameInput)).check(matches(withText("Name Test1updated Name")))
         onView(withId(R.id.itemDescInput)).check(matches(withText("Apt Description 1updated Desc")))
-        onView(withId(R.id.itemPriceInput)).check(matches(withText("9.600.00")))
+        onView(withId(R.id.itemPriceInput)).check(matches(withText("9.600")))
         onView(withId(R.id.itemQtyInput)).check(matches(withText("101")))
 
         onView(withId(R.id.del_btn)).perform(click())
@@ -89,7 +89,6 @@ class DeleteItemInstrumentedTest {
     fun viewAddedItems(){
         addItems()
         confirmContentEditAndDelete(0,"Name Test1", "Apt Description 1", "9.6", "10")
-
     }
 
 }
