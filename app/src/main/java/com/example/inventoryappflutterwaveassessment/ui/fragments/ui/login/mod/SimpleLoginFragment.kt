@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.inventoryappflutterwaveassessment.R
 import com.example.inventoryappflutterwaveassessment.databinding.FragmentLoginBinding
 import com.example.inventoryappflutterwaveassessment.extensions.onToast
 import com.example.inventoryappflutterwaveassessment.extensions.saveSessionAuth
@@ -63,12 +64,12 @@ class SimpleLoginFragment : Fragment() {
             val isValidPassword = pass.isNotEmpty()
 
             if (!isValidEmail) {
-                onToast("Invalid Email. Can't log in")
+                onToast(getString(R.string.invalid_email_can_t_log_in))
                 return@setOnClickListener
             }
 
             if (!isValidPassword) {
-                onToast("Password must not be empty")
+                onToast(getString(R.string.password_must_not_be_empty))
                 return@setOnClickListener
             }
 

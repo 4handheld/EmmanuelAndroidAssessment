@@ -77,9 +77,9 @@ class EditInventoryFragment : Fragment() {
 
     private fun onSuccess(isdel: Boolean){
         val text = if(isdel){
-            "Deleted done"
+            getString(R.string.deleted_done)
         }else{
-            "Update done"
+            getString(R.string.update_done)
         }
         onToast(text)
         findNavController().navigateUp()
@@ -105,25 +105,24 @@ class EditInventoryFragment : Fragment() {
               val isValidDesc = desc.split(" ").size >= 3
 
               if(!isNameValid){
-                  onToast("Name is required and must be unique")
+                  onToast(getString(R.string.name_is_required_and_must_be_unique))
                   return@setOnClickListener
               }
 
               if(!isValidDesc){
-                  onToast("Description must be at least three words")
+                  onToast(getString(R.string.description_must_be_at_least_three_words))
                   return@setOnClickListener
               }
 
               if(!isValidPrice){
-                  onToast("Price is required and must be a number")
+                  onToast(getString(R.string.price_is_required_and_must_be_a_number))
                   return@setOnClickListener
               }
 
               if(!isValidQty){
-                  onToast("Qty is required and must be a number")
+                  onToast(getString(R.string.qty_is_required_and_must_be_a_number))
                   return@setOnClickListener
               }
-
 
               Items( ownerId, name, desc, price.toDouble(), qty.toInt(), uid)
           }

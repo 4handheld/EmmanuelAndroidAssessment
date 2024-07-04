@@ -20,4 +20,13 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="total_stock">Total Stock</string>
+    <string name="add_done">Add done</string>
+    <string name="name_is_required_and_must_be_unique">Name is required and must be unique</string>
+    <string name="description_must_be_at_least_three_words">Description must be at least three words</string>
+    <string name="price_is_required_and_must_be_a_number">Price is required and must be a number</string>
+    <string name="qty_is_required_and_must_be_a_number">Qty is required and must be a number</string>
+    <string name="deleted_done">Deleted done</string>
+    <string name="update_done">Update done</string>
+    <string name="invalid_email_can_t_log_in">Invalid Email. Can\'t log in</string>
+    <string name="password_must_not_be_empty">Password must not be empty</string>
 </resources>

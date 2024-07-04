@@ -62,7 +62,7 @@ class AddInventoryFragment : Fragment() {
         onToast(msg)
     }
     private fun onSuccess(){
-        onToast("Add done") //Localize
+        onToast(getString(R.string.add_done)) //Localize
         findNavController().navigateUp()
     }
 
@@ -79,22 +79,22 @@ class AddInventoryFragment : Fragment() {
            val isValidDesc = desc.split(" ").size >= 3
 
            if(!isNameValid){
-               onToast("Name is required and must be unique")
+               onToast(getString(R.string.name_is_required_and_must_be_unique))
                return@setOnClickListener
            }
 
            if(!isValidDesc){
-               onToast("Description must be at least three words")
+               onToast(getString(R.string.description_must_be_at_least_three_words))
                return@setOnClickListener
            }
 
            if(!isValidPrice){
-               onToast("Price is required and must be a number")
+               onToast(getString(R.string.price_is_required_and_must_be_a_number))
                return@setOnClickListener
            }
 
            if(!isValidQty){
-               onToast("Qty is required and must be a number")
+               onToast(getString(R.string.qty_is_required_and_must_be_a_number))
                return@setOnClickListener
            }
 
