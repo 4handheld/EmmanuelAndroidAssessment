@@ -133,15 +133,15 @@ class EditInventoryFragment : Fragment() {
 
     private fun confirmDeleteDialog(item: Items){
         val dlg = AlertDialog.Builder(activity).apply {
-            setMessage("You are about to delete ${item.name} ? ")
-            setPositiveButton("Okay") { dialog, _ ->
+            setMessage(getString(R.string.you_are_about_to_delete, item.name))
+            setPositiveButton(getString(R.string.okay)) { dialog, _ ->
                 viewModel.deleteItem(item)
                 dialog.dismiss()
-
             }
-            setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
             create()
         }
         dlg.show()
     }
+
 }

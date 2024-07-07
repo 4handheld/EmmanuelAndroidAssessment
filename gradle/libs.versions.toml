@@ -20,6 +20,13 @@ rules_140 = "1.4.0"
 
 junit_4132 = "4.13.2"
 
+application_810 = "8.1.0"
+android_1910 = "1.9.10"
+ksp_1910_1013 = "1.9.10-1.0.13"
+parcelize_1924 = "1.9.24"
+
+safe_args_277 = "2.7.7"
+
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx_190" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat_161" }
@@ -49,6 +56,11 @@ ksp_room = { module = "androidx.room:room-compiler", version.ref = "room_260"}
 ksp_hilt = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt_2481"}
 
 
+safe_args = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "safe_args_277"}
+
+
+
+
 
 [bundles]
 default = ["core-ktx","appcompat","material","annotation","constraintlayout","lifecycle-livedata-ktx",
@@ -62,3 +74,8 @@ testImplementation = ["junit","room-testing"]
 ksp = ["ksp_room","ksp_hilt"]
 
 [plugins]
+application = { id = "com.android.application", version.ref = "application_810" }
+android = { id = "org.jetbrains.kotlin.android", version.ref = "android_1910" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp_1910_1013" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt_2481" }
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize_1924" }
