@@ -18,11 +18,3 @@ I've implemented the feature as requested:
 14. Room for local sqlite storage
 15. A comprehensive Integration test that runs through the end to end process of creating, viewing, editing, deleting and confirmation dialog test. The entry point for the complete e2e test is `AppInstrumentedTests.startInstrumentedTest()`
 16. Attached is the APK 
-
-NB: I saw the assignment late and combined with my hectic weekend, I rushed this work. Total development time was approximately 6 hours. I intend to do the following within the next few days:
-1. Localise the texts
-2. Fix the commits. They were bulked due to the time constraints.
-3. Use libs.version.toml (Version catalogs) to organise dependencies
-4. Modularize the UI and data packages
-5. Use a green theme for the app.
-6. Implement the Password Hash using SHA256
